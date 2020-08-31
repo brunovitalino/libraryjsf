@@ -2,27 +2,43 @@ package br.com.bv.library.models;
 
 import java.util.Date;
 
-//	Nome - obrigatório
-//	Descrição - obrigatório (deve conter no máximo 240 caracteres)
-//	Imagem - obrigatório
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 //	Data de publicação - obrigatória caso a data de exposição não seja informada (é utilizada mais para livros e demais publicações escritas)
 //	Data de exposição - obrigatória caso a data de publicação não seja informada (é utilizada mais para obras que são expostas, como pinturas, esculturas e demais)
+@Entity
 public class Obra {
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank
 	private String nome;
+	
+	@Size(max = 240)
 	private String descricao;
-	private Arquivo imagem;
+	
+//	@NotNull
+//	private Arquivo imagem;
+	
 	private Date dataPublicacao;
+	
 	private Date dataExposicao;
 
 	public Obra() {
 	}
 
-	public Obra(Long id, String nome, String descricao, Arquivo imagem, Date dataPublicacao, Date dataExposicao) {
+	public Obra(Long id, String nome, String descricao, //Arquivo imagem,
+			Date dataPublicacao, Date dataExposicao) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
-		this.imagem = imagem;
+//		this.imagem = imagem;
 		this.dataPublicacao = dataPublicacao;
 		this.dataExposicao = dataExposicao;
 	}
@@ -55,13 +71,13 @@ public class Obra {
 		this.descricao = descricao;
 	}
 
-	public Arquivo getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(Arquivo imagem) {
-		this.imagem = imagem;
-	}
+//	public Arquivo getImagem() {
+//		return imagem;
+//	}
+//
+//	public void setImagem(Arquivo imagem) {
+//		this.imagem = imagem;
+//	}
 
 	public Date getDataPublicacao() {
 		return dataPublicacao;
@@ -77,6 +93,12 @@ public class Obra {
 
 	public void setDataExposicao(Date dataExposicao) {
 		this.dataExposicao = dataExposicao;
+	}
+
+	@Override
+	public String toString() {
+		return "Obra [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", "//imagem=" + imagem
+				+ ", dataPublicacao=" + dataPublicacao + ", dataExposicao=" + dataExposicao + "]";
 	}
 
 	@Override

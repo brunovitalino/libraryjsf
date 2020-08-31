@@ -1,4 +1,4 @@
-package br.com.bv.business.exception;
+package br.com.bv.library.business.exception;
 
 public class DefaultException extends Exception {
 

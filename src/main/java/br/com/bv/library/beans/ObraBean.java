@@ -11,16 +11,16 @@ public class ObraBean {
 	
 	private Obra obra = new Obra();
 
-	public Obra getLivro() {
+	public Obra getObra() {
 		return obra;
 	}
 
-	public void setLivro(Obra livro) {
-		this.obra = livro;
+	public void setObra(Obra obra) {
+		this.obra = obra;
 	}
 
 	public void gravar() {
-		System.out.println("foi gravado! ");
+		System.out.println("foi gravado! " + obra.toString());
 	}
 
 }

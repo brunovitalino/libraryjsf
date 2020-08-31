@@ -1,4 +1,4 @@
-package br.com.bv.business;
+package br.com.bv.library.business;
 
 import static br.com.bv.library.utils.LibraryUtil.isNull;
 import static br.com.bv.library.utils.LibraryUtil.isNullOrEmpty;
@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
 
-import br.com.bv.business.exception.ArquivoBusinessException;
+import br.com.bv.library.business.exception.ArquivoBusinessException;
 import br.com.bv.library.models.Arquivo;
 import br.com.bv.library.models.Obra;
 import br.com.bv.library.utils.LibraryUtil;

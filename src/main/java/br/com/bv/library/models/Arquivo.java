@@ -1,5 +1,17 @@
 package br.com.bv.library.models;
 
+/**
+ * NOME_ARQUIVO VARCHAR2(255) COD_HASH_MD5 VARCHAR2(32) VERSAO NUMBER(16)
+ * NOME_ARQUIVO_FISICO VARCHAR2(255) COD_USUARIO VARCHAR2(15) NUM_SESSAO
+ * NUMBER(8) DATA_INSERCAO DATE DATA_INSERCAO_REG DATE
+ */
+// nomeArquivo: string;
+//codHashMD5?: string;
+//nomeArquivoFisico?: string;
+//conteudoCodificado?: string;
+//arrayBuffer?: ArrayBuffer;
+//fileType?: string;
+//erroNoArquivo?: boolean;
 public class Arquivo {
 
 	private Long id;
