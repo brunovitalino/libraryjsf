@@ -7,8 +7,8 @@ import javax.persistence.Persistence;
 public class JPAUtil {
 
 	private static EntityManagerFactory emf = Persistence
-//			.createEntityManagerFactory("db_dev");
-			.createEntityManagerFactory("db_prod");
+//			.createEntityManagerFactory("db_postgres");
+			.createEntityManagerFactory("db_postgres_heroku");
 
 	public EntityManager getEntityManager() {
 		return emf.createEntityManager();
