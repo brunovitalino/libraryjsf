@@ -27,4 +27,27 @@
         </properties>
     </persistence-unit>
 
+    <persistence-unit name="db_postgres_heroku" transaction-type="RESOURCE_LOCAL">
+        <!-- provedor/implementacao do JPA -->
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!-- entidade mapeada -->
+        <class>br.com.bv.library.models.Obra</class>
+      
+        <properties>
+          <!-- dados da conexao -->
+          <property name="javax.persistence.jdbc.driver"    value="org.postgresql.Driver" />
+          <property name="javax.persistence.jdbc.url"       value="jdbc:postgresql://ec2-54-156-121-142.compute-1.amazonaws.com:5432/dbnpbjmfvktr7d" />
+          <property name="javax.persistence.jdbc.user"      value="fqkvywljqyasyg" />
+          <property name="javax.persistence.jdbc.password"  value="aa34502881171700b2eda3aa13b373b34ccfa69f2d0dae639f6e5b9e54d47edf" />
+      
+          <!-- propriedades do hibernate -->
+          <property name="hibernate.dialect"    value="org.hibernate.dialect.PostgreSQL94Dialect" />
+          <property name="hibernate.show_sql"   value="true" />
+          <property name="hibernate.format_sql" value="true" />
+      
+<!--           <property name="hibernate.hbm2ddl.auto" value="update" /> -->
+          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+        </properties>
+    </persistence-unit>
+
 </persistence>
