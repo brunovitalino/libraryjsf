@@ -24,7 +24,7 @@ public class Obra {
 	private Long id;
 	
 	@NotBlank
-	private String nome;
+	private String titulo;
 	
 	@Size(max = 240)
 	private String descricao;
@@ -47,10 +47,10 @@ public class Obra {
 	public Obra() {
 	}
 
-	public Obra(Long id, String nome, String descricao, //Arquivo imagem,
+	public Obra(Long id, String titulo, String descricao, //Arquivo imagem,
 			Date dataPublicacao, Date dataExposicao) {
 		this.id = id;
-		this.nome = nome;
+		this.titulo = titulo;
 		this.descricao = descricao;
 //		this.imagem = imagem;
 		this.dataPublicacao = dataPublicacao;
@@ -69,12 +69,12 @@ public class Obra {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getTitulo() {
+		return titulo;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public String getDescricao() {
@@ -123,7 +123,7 @@ public class Obra {
 
 	@Override
 	public String toString() {
-		return "Obra [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", "//imagem=" + imagem
+		return "Obra [id=" + id + ", nome=" + titulo + ", descricao=" + descricao + ", "//imagem=" + imagem
 				+ ", dataPublicacao=" + dataPublicacao + ", dataExposicao=" + dataExposicao + "]";
 	}
 
