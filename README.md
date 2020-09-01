@@ -1,14 +1,16 @@
-# Library
+# Library  
 
-## Description
+## Description  
 
-A jsf library to register books and authors.
+A jsf library to register books and authors.  
 
-## Site
+## Site  
 
-[Application](https://libraryjsf.herokuapp.com/index.html)
+[Home](https://libraryjsf.herokuapp.com/index.html)  
+[Obra](https://libraryjsf.herokuapp.com/obra.xhtml)  
+[Autor](https://libraryjsf.herokuapp.com/autor.xhtml)  
 
-## Instructions to run locally
+## Instructions to run locally  
 
 * Java: 1.8  
 * Server: Wildfly 18.0.1  
