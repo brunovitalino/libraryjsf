@@ -7,6 +7,8 @@ A jsf library to register books and authors.
 ## Site
 
 [Application](https://libraryjsf.herokuapp.com/index.html)
+[Obra's Page](https://libraryjsf.herokuapp.com/obra.xhtml)
+[Autor's Page](https://libraryjsf.herokuapp.com/autor.xhtml)
 
 ## Instructions to run locally
 
