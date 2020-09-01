@@ -1,22 +1,18 @@
 package br.com.bv.library.beans;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
 
 import br.com.bv.library.models.Obra;
 
-@RequestScoped
-@Named
+@ManagedBean
 public class ObraBean {
+	
+//	private ObraDao obraDao;
 	
 	private Obra obra = new Obra();
 
 	public Obra getObra() {
 		return obra;
-	}
-
-	public void setObra(Obra obra) {
-		this.obra = obra;
 	}
 
 	public void gravar() {

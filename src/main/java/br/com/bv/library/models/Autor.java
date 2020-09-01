@@ -1,6 +1,19 @@
 package br.com.bv.library.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import br.com.bv.library.models.enums.SexoEnum;
 
@@ -10,24 +23,44 @@ import br.com.bv.library.models.enums.SexoEnum;
 //Data de nascimento - obrigatório, deve ser validada
 //País de origem - obrigatório (deve ser um país existente)
 //CPF - somente deve ser informado caso país de origem seja o Brasil, desta forma torna-se obrigatório. Deve ser validado (formatado e não pode haver dois cadastros com mesmo CPF)
+@Entity
 public class Autor {
 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private SexoEnum sexo;
+	
+	private String nome;
+	
 	private String email;
+	
+	@Enumerated(EnumType.STRING)
+	private SexoEnum sexo;
+	
 	private Date dataNascimento;
-	private Pais pais;
+	
+//	private Pais pais;
+	
 	private String cpf;
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "Obra_Autor", 
+            joinColumns = { @JoinColumn(name = "autor_id") }, 
+            inverseJoinColumns = { @JoinColumn(name = "obra_id") }
+        )
+	private List<Obra> obras = new ArrayList<>();
 
 	public Autor() {
 	}
 
-	public Autor(Long id, SexoEnum sexo, String email, Date dataNascimento, Pais pais, String cpf) {
+	public Autor(Long id, SexoEnum sexo, String nome, String email, Date dataNascimento, //Pais pais,
+			String cpf) {
 		this.id = id;
+		this.nome = nome;
 		this.sexo = sexo;
 		this.email = email;
 		this.dataNascimento = dataNascimento;
-		this.pais = pais;
+//		this.pais = pais;
 		this.cpf = cpf;
 	}
 
@@ -37,6 +70,14 @@ public class Autor {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public SexoEnum getSexo() {
@@ -63,13 +104,13 @@ public class Autor {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Pais getPais() {
-		return pais;
-	}
-
-	public void setPais(Pais pais) {
-		this.pais = pais;
-	}
+//	public Pais getPais() {
+//		return pais;
+//	}
+//
+//	public void setPais(Pais pais) {
+//		this.pais = pais;
+//	}
 
 	public String getCpf() {
 		return cpf;
@@ -79,10 +120,23 @@ public class Autor {
 		this.cpf = cpf;
 	}
 
+	public List<Obra> getAutores() {
+		return obras;
+	}
+
+	public void setAutores(List<Obra> obras) {
+		this.obras = obras;
+	}
+
+	public void adicionaAutor(Obra obra) {
+		this.obras.add(obra);
+	}
+
 	@Override
 	public String toString() {
 		return "Autor [id=" + id + ", sexo=" + sexo + ", email=" + email + ", dataNascimento=" + dataNascimento
-				+ ", pais=" + pais + ", cpf=" + cpf + "]";
+				//+ ", pais=" + pais 
+				+ ", cpf=" + cpf + "]";
 	}
 
 	@Override

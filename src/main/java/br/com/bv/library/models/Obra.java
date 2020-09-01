@@ -1,11 +1,17 @@
 package br.com.bv.library.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -29,6 +35,14 @@ public class Obra {
 	private Date dataPublicacao;
 	
 	private Date dataExposicao;
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "Obra_Autor", 
+            joinColumns = { @JoinColumn(name = "obra_id") }, 
+            inverseJoinColumns = { @JoinColumn(name = "autor_id") }
+        )
+	private List<Autor> autores = new ArrayList<Autor>();
 
 	public Obra() {
 	}
@@ -93,6 +107,18 @@ public class Obra {
 
 	public void setDataExposicao(Date dataExposicao) {
 		this.dataExposicao = dataExposicao;
+	}
+
+	public List<Autor> getAutores() {
+		return autores;
+	}
+
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
+
+	public void adicionaAutor(Autor autor) {
+		this.autores.add(autor);
 	}
 
 	@Override
