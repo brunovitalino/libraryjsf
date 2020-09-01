@@ -62,7 +62,8 @@ public class PopulaBanco {
 
 		em.getTransaction().commit();
 		em.close();
-
+		
+		System.exit(0);
 	}
 
 	private static Autor geraAutor(String nome) {

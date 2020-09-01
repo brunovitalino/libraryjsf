@@ -7,8 +7,6 @@ import br.com.bv.library.models.Obra;
 @ManagedBean
 public class ObraBean {
 	
-//	private ObraDao obraDao;
-	
 	private Obra obra = new Obra();
 
 	public Obra getObra() {
