@@ -75,7 +75,7 @@ public class PopulaBanco {
 	private static Obra geraObra(String nome, String descricao, //Imagem imagem,
 			Date dataPublicacao, Date dataExposicao, Autor autor) {
 		Obra obra = new Obra();
-		obra.setNome(nome);
+		obra.setTitulo(nome);
 		obra.setDescricao(descricao);
 //		obra.setImagem(imagem);
 		obra.setDataPublicacao(dataPublicacao);

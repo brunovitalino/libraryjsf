@@ -42,13 +42,13 @@ public class Autor {
 	
 	private String cpf;
 
-	@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "Obra_Autor", 
-            joinColumns = { @JoinColumn(name = "autor_id") }, 
-            inverseJoinColumns = { @JoinColumn(name = "obra_id") }
-        )
-	private List<Obra> obras = new ArrayList<>();
+//	@ManyToMany(cascade = { CascadeType.ALL })
+//    @JoinTable(
+//            name = "Obra_Autor", 
+//            joinColumns = { @JoinColumn(name = "autor_id") }, 
+//            inverseJoinColumns = { @JoinColumn(name = "obra_id") }
+//        )
+//	private List<Obra> obras = new ArrayList<>();
 
 	public Autor() {
 	}
@@ -120,17 +120,17 @@ public class Autor {
 		this.cpf = cpf;
 	}
 
-	public List<Obra> getAutores() {
-		return obras;
-	}
-
-	public void setAutores(List<Obra> obras) {
-		this.obras = obras;
-	}
-
-	public void adicionaAutor(Obra obra) {
-		this.obras.add(obra);
-	}
+//	public List<Obra> getAutores() {
+//		return obras;
+//	}
+//
+//	public void setAutores(List<Obra> obras) {
+//		this.obras = obras;
+//	}
+//
+//	public void adicionaAutor(Obra obra) {
+//		this.obras.add(obra);
+//	}
 
 	@Override
 	public String toString() {
