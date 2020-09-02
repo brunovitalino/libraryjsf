@@ -26,8 +26,6 @@ public class ConfigDao implements Serializable {
 
 	public void popularBanco() {
 
-//		em.getTransaction().begin();
-		
 		Autor assis = geraAutor("Machado de Assis");
 		em.persist(assis);
 
@@ -69,9 +67,6 @@ public class ConfigDao implements Serializable {
 
 		em.persist(capitaes);
 		em.persist(flor);
-
-//		em.getTransaction().commit();
-//		em.close();
 	}
 
 	private Autor geraAutor(String nome) {
