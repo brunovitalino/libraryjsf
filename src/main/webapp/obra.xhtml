@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<h1>Nova Obra</h1>
+	<h:form>
+		<fieldset>
+			<legend>Dados da Obra</legend>
+			<h:panelGrid columns="2">
+
+				<h:outputLabel value="Titulo:" for="titulo" />
+				<h:inputText id="titulo" value="#{obraBean.obra.titulo}" />
+
+				<h:outputLabel value="Descrição" for="descricao" />
+				<h:inputText id="descricao" value="#{obraBean.obra.descricao}" />
+
+				<!-- <h:outputLabel value="Data de publicação:" for="dataPublicacao" /> -->
+				<!-- <h:inputText value="#{obraBean.obra.dataPublicacao}" /> -->
+
+				<!-- <h:outputLabel value="Data de lançamento:" for="dataExposicao" /> -->
+				<!-- <h:inputText value="#{obraBean.obra.dataExposicao}" /> -->
+
+			</h:panelGrid>
+		</fieldset>
+
+		<fieldset>
+			<legend>Dados do Autor</legend>
+			<h:panelGrid columns="3">
+
+				<h:outputLabel value="Autor:" />
+				<h:selectOneMenu value="#{obraBean.autorId}">
+					<f:selectItems value="#{obraBean.autores}" itemValue="#{autor.id}"
+						itemLabel="#{autor.nome}" var="autor" />
+				</h:selectOneMenu>
+				<h:commandButton action="#{obraBean.adicionarAutor}"
+					value="Adiciona Autor" />
+
+				<h:dataTable value="#{obraBean.autoresDaObra}" var="autor">
+					<h:column>
+						<h:outputText value="#{autor.nome}" />
+					</h:column>
+				</h:dataTable>
+			</h:panelGrid>
+		</fieldset>
+
+		<h:commandButton value="Gravar" action="#{obraBean.gravar}" />
+	</h:form>
+
+	<h:dataTable value="#{obraBean.obras}" var="obra">
+		<h:column>
+			<f:facet name="header">Titulo</f:facet>
+			<h:outputText value="#{obra.titulo}" />
+		</h:column>
+	</h:dataTable>
+</h:body>
+
+</html>
