@@ -1,19 +1,48 @@
 package br.com.bv.library.daos;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
+
 import br.com.bv.library.models.Autor;
 
-public class AutorDao {
-	
+@Repository
+@SuppressWarnings("serial")
+public class AutorDao implements Serializable {
+
 	@PersistenceContext
-	private EntityManager entityManager;
-	
-	public void salvar(Autor autor) {
-		entityManager.getTransaction().begin();
-		entityManager.persist(autor);
-		entityManager.getTransaction().commit();
+	EntityManager em;
+
+	private DAO<Autor> dao;
+
+	@PostConstruct
+	void init() {
+		this.dao = new DAO<Autor>(this.em, Autor.class);
+	}
+
+	public void adiciona(Autor t) {
+		dao.adiciona(t);
+	}
+
+	public void remove(Autor t) {
+		dao.remove(t);
+	}
+
+	public void atualiza(Autor t) {
+		dao.atualiza(t);
+	}
+
+	public List<Autor> listaTodos() {
+		return dao.listaTodos();
+	}
+
+	public Autor buscaPorId(Long id) {
+		return dao.buscaPorId(id);
 	}
 
 }

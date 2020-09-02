@@ -1,19 +1,14 @@
 package br.com.bv.library.models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 import br.com.bv.library.models.enums.SexoEnum;
 
@@ -24,19 +19,21 @@ import br.com.bv.library.models.enums.SexoEnum;
 //País de origem - obrigatório (deve ser um país existente)
 //CPF - somente deve ser informado caso país de origem seja o Brasil, desta forma torna-se obrigatório. Deve ser validado (formatado e não pode haver dois cadastros com mesmo CPF)
 @Entity
-public class Autor {
+public class Autor implements Serializable {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private static final long serialVersionUID = 1L;
+
+	@Id	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String nome;
 	
-	private String email;
-	
 	@Enumerated(EnumType.STRING)
 	private SexoEnum sexo;
 	
-	private Date dataNascimento;
+	private String email;
+	
+	private Calendar dataNascimento;
 	
 //	private Pais pais;
 	
@@ -53,7 +50,7 @@ public class Autor {
 	public Autor() {
 	}
 
-	public Autor(Long id, SexoEnum sexo, String nome, String email, Date dataNascimento, //Pais pais,
+	public Autor(Long id, SexoEnum sexo, String nome, String email, Calendar dataNascimento, //Pais pais,
 			String cpf) {
 		this.id = id;
 		this.nome = nome;
@@ -96,11 +93,11 @@ public class Autor {
 		this.email = email;
 	}
 
-	public Date getDataNascimento() {
+	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -134,9 +131,8 @@ public class Autor {
 
 	@Override
 	public String toString() {
-		return "Autor [id=" + id + ", sexo=" + sexo + ", email=" + email + ", dataNascimento=" + dataNascimento
-				//+ ", pais=" + pais 
-				+ ", cpf=" + cpf + "]";
+		return "Autor [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", email=" + email + ", dataNascimento="
+				+ dataNascimento + ", cpf=" + cpf + "]";
 	}
 
 	@Override

@@ -1,29 +1,31 @@
 package br.com.bv.library.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+//import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-//	Data de publicação - obrigatória caso a data de exposição não seja informada (é utilizada mais para livros e demais publicações escritas)
-//	Data de exposição - obrigatória caso a data de publicação não seja informada (é utilizada mais para obras que são expostas, como pinturas, esculturas e demais)
+//Data de publicação - obrigatória caso a data de exposição não seja informada (é utilizada mais para livros e demais publicações escritas)
+//Data de exposição - obrigatória caso a data de publicação não seja informada (é utilizada mais para obras que são expostas, como pinturas, esculturas e demais)
 @Entity
-public class Obra {
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Obra implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank
+
+//	@NotBlank
 	private String titulo;
 	
 	@Size(max = 240)
@@ -31,34 +33,36 @@ public class Obra {
 	
 //	@NotNull
 //	private Arquivo imagem;
+
+	@Temporal(TemporalType.DATE)
+	private Calendar dataPublicacao = Calendar.getInstance();
 	
-	private Date dataPublicacao;
-	
-	private Date dataExposicao;
+	@Temporal(TemporalType.DATE)
+	private Calendar dataExposicao = Calendar.getInstance();
 
 	@ManyToMany//(cascade = { CascadeType.ALL })
-//    @JoinTable(
-//            name = "Obra_Autor", 
-//            joinColumns = { @JoinColumn(name = "obra_id") }, 
-//            inverseJoinColumns = { @JoinColumn(name = "autor_id") }
-//        )
+//	@JoinTable(
+//		name = "Obra_Autor", 
+//		joinColumns = { @JoinColumn(name = "obra_id") }, 
+//		inverseJoinColumns = { @JoinColumn(name = "autor_id") }
+//	)
 	private List<Autor> autores = new ArrayList<Autor>();
 
 	public Obra() {
 	}
 
-	public Obra(Long id, String titulo, String descricao, //Arquivo imagem,
-			Date dataPublicacao, Date dataExposicao) {
+	public Obra(Long id) {
 		this.id = id;
+	}
+
+	public Obra(Long id, String titulo, String descricao, //Arquivo imagem,
+			Calendar dataPublicacao, Calendar dataExposicao) {
+		this(id);
 		this.titulo = titulo;
-		this.descricao = descricao;
+		this.setDescricao(descricao);
 //		this.imagem = imagem;
 		this.dataPublicacao = dataPublicacao;
 		this.dataExposicao = dataExposicao;
-	}
-
-	public Obra(Long id) {
-		this.id = id;
 	}
 
 	public Long getId() {
@@ -93,19 +97,19 @@ public class Obra {
 //		this.imagem = imagem;
 //	}
 
-	public Date getDataPublicacao() {
+	public Calendar getDataPublicacao() {
 		return dataPublicacao;
 	}
 
-	public void setDataPublicacao(Date dataPublicacao) {
+	public void setDataPublicacao(Calendar dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
 	}
 
-	public Date getDataExposicao() {
+	public Calendar getDataExposicao() {
 		return dataExposicao;
 	}
 
-	public void setDataExposicao(Date dataExposicao) {
+	public void setDataExposicao(Calendar dataExposicao) {
 		this.dataExposicao = dataExposicao;
 	}
 
@@ -113,18 +117,10 @@ public class Obra {
 		return autores;
 	}
 
-	public void setAutores(List<Autor> autores) {
-		this.autores = autores;
-	}
-
-	public void adicionaAutor(Autor autor) {
-		this.autores.add(autor);
-	}
-
 	@Override
 	public String toString() {
-		return "Obra [id=" + id + ", nome=" + titulo + ", descricao=" + descricao + ", "//imagem=" + imagem
-				+ ", dataPublicacao=" + dataPublicacao + ", dataExposicao=" + dataExposicao + "]";
+		return "Obra [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", dataPublicacao="
+				+ dataPublicacao + ", dataExposicao=" + dataExposicao + ", autores=" + autores + "]";
 	}
 
 	@Override
@@ -150,6 +146,16 @@ public class Obra {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	
+	// Extra methods
+
+	public void adicionaAutor(Autor autor) {
+		this.autores.add(autor);
+	}
+
+	public void removeAutor(Autor autor) {
+		this.autores.remove(autor);
 	}
 
 }

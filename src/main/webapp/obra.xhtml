@@ -1,60 +1,102 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<h:body>
-	<h1>Nova Obra</h1>
-	<h:form>
-		<fieldset>
-			<legend>Dados da Obra</legend>
-			<h:panelGrid columns="2">
+	<ui:composition template="_template.xhtml">
+	
+		<f:metadata>
+			<f:viewParam name="obraId" value="#{obraBean.obra.id}" />
+			<f:viewAction action="#{obraBean.carregarObraPelaId}" if="#{param.obraId != null}" />
+		</f:metadata>
+	
 
-				<h:outputLabel value="Titulo:" for="titulo" />
-				<h:inputText id="titulo" value="#{obraBean.obra.titulo}" />
+		<ui:define name="titulo">
+				<p:outputPanel>Novo Obra</p:outputPanel>
+		</ui:define>
 
-				<h:outputLabel value="Descrição" for="descricao" />
-				<h:inputText id="descricao" value="#{obraBean.obra.descricao}" />
+		<ui:define name="conteudo">
+			<h:form id="formObra">
 
-				<!-- <h:outputLabel value="Data de publicação:" for="dataPublicacao" /> -->
-				<!-- <h:inputText value="#{obraBean.obra.dataPublicacao}" /> -->
+				<p:messages id="messages" />
 
-				<!-- <h:outputLabel value="Data de lançamento:" for="dataExposicao" /> -->
-				<!-- <h:inputText value="#{obraBean.obra.dataExposicao}" /> -->
+				<p:fieldset legend="Dados do Obra">
+					<p:panelGrid columns="2">
 
-			</h:panelGrid>
-		</fieldset>
+						<p:outputLabel value="Titulo:" for="titulo" />
+						<p:inputText id="titulo" value="#{obraBean.obra.titulo}"
+							required="true" requiredMessage="Título obrigatório"
+							validatorMessage="Título não pode ser superior a 40">
+							<f:validateLength maximum="40" />
+							<f:ajax event="blur" render="messages" />
+						</p:inputText>
 
-		<fieldset>
-			<legend>Dados do Autor</legend>
-			<h:panelGrid columns="3">
+						<p:outputLabel value="Data de Lançamento:" for="dataPublicacao" />
+						<p:calendar id="dataPublicacao" value="#{obraBean.obra.dataPublicacao.time}" timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy" mask="true" />
+						
+					</p:panelGrid>
 
-				<h:outputLabel value="Autor:" />
-				<h:selectOneMenu value="#{obraBean.autorId}">
-					<f:selectItems value="#{obraBean.autores}" itemValue="#{autor.id}"
-						itemLabel="#{autor.nome}" var="autor" />
-				</h:selectOneMenu>
-				<h:commandButton action="#{obraBean.adicionarAutor}"
-					value="Adiciona Autor" />
+				</p:fieldset>
+	
+				<p:fieldset legend="Dados do Autor">
 
-				<h:dataTable value="#{obraBean.autoresDaObra}" var="autor">
-					<h:column>
-						<h:outputText value="#{autor.nome}" />
-					</h:column>
-				</h:dataTable>
-			</h:panelGrid>
-		</fieldset>
-
-		<h:commandButton value="Gravar" action="#{obraBean.gravar}" />
-	</h:form>
-
-	<h:dataTable value="#{obraBean.obras}" var="obra">
-		<h:column>
-			<f:facet name="header">Titulo</f:facet>
-			<h:outputText value="#{obra.titulo}" />
-		</h:column>
-	</h:dataTable>
-</h:body>
+					<p:panelGrid columns="4">
+						<p:outputLabel value="Selecione Autor:" for="autor" />
+						<p:selectOneMenu value="#{obraBean.autorId}" id="autor">
+							<f:selectItems value="#{obraBean.autores}" var="autor" itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
+						</p:selectOneMenu>
+						<p:commandButton value="Gravar Autor" action="#{obraBean.gravarAutor}" 
+								process="@this autor" update="tabelaAutores">
+						</p:commandButton>
+		
+						<p:commandLink value="ou cadastrar novo autor" action="#{obraBean.formAutor}" immediate="true" 
+									update="@all"/>
+					</p:panelGrid>
+					
+					<p:dataTable value="#{obraBean.autoresDoObra}" var="autor" id="tabelaAutores" emptyMessage="Nenhum autor">
+						<p:column>
+							<h:outputText value="#{autor.nome}" />
+						</p:column>
+						<p:column>
+							<p:commandLink value="X" action="#{obraBean.removerAutorDoObra(autor)}" update="tabelaAutores" process="@this"/>
+						</p:column>
+					</p:dataTable>
+				</p:fieldset>
+					<br />
+				<p:fieldset style="text-align:center;">
+					<p:commandButton value="Gravar Obra" action="#{obraBean.gravar}" process="@form" 
+							update="@form :formTabelaObras:tabelaObras"  />
+				</p:fieldset>
+			</h:form>
+			
+			<br />
+			<br />
+	
+			<h:form id="formTabelaObras">
+			<p:dataTable value="#{obraBean.obras}" var="obra" id="tabelaObras" paginator="true" rows="5">
+				<f:facet name="header">Obras</f:facet>
+				<p:column headerText="Título" sortBy="#{obra.titulo}" filterBy="#{obra.titulo}" filterMatchMode="startsWith">
+					<h:outputText value="#{obra.titulo}" />
+				</p:column>
+				<p:column headerText="Data" sortBy="#{obra.dataPublicacao.time}">
+					<h:outputText value="#{obra.dataPublicacao.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Alterar">
+					<p:commandButton update=":formObra" process="@this" value="alterar" actionListener="#{obraBean.carregar(obra)}" icon="fa fa-fw fa-edit" />
+				</p:column>					
+				
+				<p:column headerText="Remover">
+					<p:commandButton update="@form" process="@this" value="remover" actionListener="#{obraBean.remover(obra)}" icon="fa fa-fw fa-remove" />
+				</p:column>	
+			</p:dataTable>
+			</h:form>			
+		</ui:define>
+	</ui:composition>
 
 </html>
