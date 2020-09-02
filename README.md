@@ -6,21 +6,33 @@ A jsf library to register books and authors.
 
 ## Site  
 
-[Home](https://libraryjsf.herokuapp.com/index.html)  
-[Obra](https://libraryjsf.herokuapp.com/obra.xhtml)  
-[Autor](https://libraryjsf.herokuapp.com/autor.xhtml)  
+[Application](http://libraryjsf.herokuapp.com/obra.xhtml)  
 
-## Instructions to run locally  
+## Instructions 
+
+* Before to use the system, you should click the button ``Gerar usuário`` in the login page.  
+* Optionally you can also click click the button ``Popular banco`` to obtain a pre-registered set of data.  
+
+The user's login that will be generated is:  
+
+>  Email: teste@teste.com  
+>  Senha: 123  
+
+#### Running locally  
 
 * Java: 1.8  
-* Server: Wildfly 18.0.1  
+* Server: Wildfly 18.0.1  or Tomcat 8.5  
 * Database: Postgres 9.6  
 
 You should create the databases: libraryjsf  
 > user: postgres  
 > password: 123  
   
-Config your project and add it to the server;  
+Config your project changing datasource through applicationContext.xml file:  
+
+* Update ``entityManagerFactory`` bean's value from ``db_postgres_heroku`` to ``db_postgres``  
+
+Save and add the project to the server.  
   
 #### Wildfly Server  
 - Copy the ``org`` folder inside ``resources/Config/WildflyDatabase`` from your project and paste inside ``modules`` folder localized in the root ``Wildfly folder``;  
@@ -55,5 +67,8 @@ Config your project and add it to the server;
 	<!-- <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class> -->
 </driver>  
 ```
-  
+    
+#### Tomcat Server  
+- Just add the project and play.
+
 Now just start the server and ready to go! 
