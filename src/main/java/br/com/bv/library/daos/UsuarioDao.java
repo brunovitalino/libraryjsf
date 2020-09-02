@@ -55,4 +55,22 @@ public class UsuarioDao implements Serializable {
 		return true;
 	}
 
+	public boolean existeEmail(Usuario usuario) {
+
+		TypedQuery<Usuario> query = manager.createQuery(
+				" select u from Usuario u "
+						+ " where u.email = :pEmail",
+				Usuario.class);
+
+		query.setParameter("pEmail", usuario.getEmail());
+		try {
+			@SuppressWarnings("unused")
+			Usuario resultado = query.getSingleResult();
+		} catch (NoResultException ex) {
+			return false;
+		}
+
+		return true;
+	}
+
 }

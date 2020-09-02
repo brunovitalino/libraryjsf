@@ -56,15 +56,24 @@ public class LoginBean implements Serializable {
 	public String gerarUsuario() {
 		this.usuario.setEmail("teste@teste.com");
 		this.usuario.setSenha("123");
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		boolean existe = dao.existe(this.usuario);
+		if (existe) {
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			context.addMessage(null, new FacesMessage("Usuário já foi gerado!"));
+			
+			return "login?faces-redirect=true";
+		}
+		
 		System.out.println("Gravando usuario " + this.usuario.getEmail());
 
-		if (this.usuario.getId() == null) {
-			this.dao.adiciona(this.usuario);
-		} else {
-			this.dao.atualiza(this.usuario);
-		}
+		this.dao.adiciona(this.usuario);
 
 		this.usuario = new Usuario();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		context.addMessage(null, new FacesMessage("Usuário gerado!"));
 
 		return "login?faces-redirect=true";
 	}
