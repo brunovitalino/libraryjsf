@@ -36,12 +36,12 @@ public class Obra {
 	
 	private Date dataExposicao;
 
-	@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "Obra_Autor", 
-            joinColumns = { @JoinColumn(name = "obra_id") }, 
-            inverseJoinColumns = { @JoinColumn(name = "autor_id") }
-        )
+	@ManyToMany//(cascade = { CascadeType.ALL })
+//    @JoinTable(
+//            name = "Obra_Autor", 
+//            joinColumns = { @JoinColumn(name = "obra_id") }, 
+//            inverseJoinColumns = { @JoinColumn(name = "autor_id") }
+//        )
 	private List<Autor> autores = new ArrayList<Autor>();
 
 	public Obra() {

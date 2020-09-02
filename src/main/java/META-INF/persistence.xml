@@ -8,6 +8,7 @@
         <!-- provedor/implementacao do JPA -->
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <!-- entidade mapeada -->
+        <class>br.com.bv.library.models.Autor</class>
         <class>br.com.bv.library.models.Obra</class>
       
         <properties>
@@ -31,6 +32,7 @@
         <!-- provedor/implementacao do JPA -->
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <!-- entidade mapeada -->
+        <class>br.com.bv.library.models.Autor</class>
         <class>br.com.bv.library.models.Obra</class>
       
         <properties>
@@ -45,8 +47,8 @@
           <property name="hibernate.show_sql"   value="true" />
           <property name="hibernate.format_sql" value="true" />
       
-<!--           <property name="hibernate.hbm2ddl.auto" value="update" /> -->
-          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+          <property name="hibernate.hbm2ddl.auto" value="update" />
+<!--           <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
         </properties>
     </persistence-unit>
 
